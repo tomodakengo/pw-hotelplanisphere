@@ -11,6 +11,9 @@ export function Pathを確認する(page: Page, path: string) {
 export function メニューをクリックする(page: Page, menu: string) {
   return page.getByRole("link", { name: menu }).click();
 }
+export function ボタンをクリックする(page: Page, menu: string) {
+  return page.getByRole("button", { name: menu }).click();
+}
 
 export function プラン表示を確認する(page: Page, plans: string) {
   const plansArr: any[] = plans.split("|");
