@@ -5,14 +5,17 @@
  */
 import * as fs from "fs";
 
-export function parseCSV(filePath: string): Array<[string, string]> {
+export function parseCSV(filePath: string): Record<string,[ string, string ][]> {
   const fileContent = fs.readFileSync(filePath, "utf8");
   const lines = fileContent.split("\n");
-  return lines.map((line) => {
-    const [keywords, args] = line
-      .trim()
-      .split(",")
-      .map((part) => part.trim());
-    return [keywords, args];
+  const res: Record<string,[ string, string ][]> = {};
+
+  lines.forEach((line) => {
+    const [tc, keyword, args] = line.split(",").map((value) => value.trim());
+    const values = res[tc] || [];
+    values.push([keyword, args]);
+    res[tc] = values;
   });
+
+  return res;
 }
