@@ -96,15 +96,8 @@ export function URLを開く(page: Page, url: string) {
 ### testScript.spec.ts
 
 testStepsを周回させ、それぞれのキーワードに対応したメソッドを実行します。
+この時、キーワードはメソッド名である必要があります。
 ```typescript
-// CSVに記載したキーワードと、メソッドを対応付けます
-const keywords = {
-  URLを開く: km.URLを開く,
-  Pathを確認する: km.Pathを確認する,
-  メニューをクリックする: km.メニューをクリックする,
-  プラン表示を確認する: km.プラン表示を確認する,
-};
-
 try {
   const csvFilePath = "./tests/KeywordDrivenTest.csv";
   const testSteps = parseCSV(csvFilePath);
