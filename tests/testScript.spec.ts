@@ -3,11 +3,7 @@ import { parseCSV } from "./csvParser";
 import * as km from "./keywordMethods";
 
 const keywords = {
-  URLを開く: km.URLを開く,
-  Pathを確認する: km.Pathを確認する,
-  メニューをクリックする: km.メニューをクリックする,
-  ボタンをクリックする: km.ボタンをクリックする,
-  プラン表示を確認する: km.プラン表示を確認する,
+  ...km,
 };
 
 
