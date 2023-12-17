@@ -138,8 +138,9 @@ try {
 
 - [x] 今回はテストケースが1件だけですが、CSVファイルにテストケース名を記載できる列を用意し、テストケースごとに周回させて実行させるようにできるとさらに実用的です。<br>
 https://github.com/tomodakengo/pw-hotelplanisphere/issues/1
-https://github.com/tomodakengo/pw-hotelplanisphere/tree/feat_add_col_tc
 
 - [ ] また引数に複数の値を渡す場合に、TestDataのCSV pathを渡して、それを解析してメソッドに渡してあげると、TestDataの管理がしやすくなります。
 
-- [ ] さらにキーワードとメソッドの対応付けをしなくても実行できるようにすれば、キーワード＝メソッドとなり、わざわざ対応付けの定義が必要なくなりメンテナンス性が向上します。
+- [x] さらにキーワードとメソッドの対応付けをしなくても実行できるようにすれば、キーワード＝メソッドとなり、わざわざ対応付けの定義が必要なくなりメンテナンス性が向上します。<br>
+https://github.com/tomodakengo/pw-hotelplanisphere/issues/3
+
