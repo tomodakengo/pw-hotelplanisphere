@@ -16,6 +16,7 @@
 作成したテストケースは`Keyword Driven Test`のみです。<br>
 このテストケースでは下記の手順を実施しています。<br>
 
+tc1_プラン全表示確認
 1. https://hotel.testplanisphere.dev/ja/ に遷移する
 1. URL に「/ja/」が含まれているか確認する
 1. ナビゲーションメニューの「宿泊予約」をクリックする
@@ -28,6 +29,17 @@
    - 貸し切り露天風呂プラン
    - カップル限定プラン
    - テーマパーク優待プラン
+
+tc2_メニュークリック後の表示確認
+1. https://hotel.testplanisphere.dev/ja/ に遷移する
+1. URL に「/ja/」が含まれているか確認する
+1. ナビゲーションメニューの「宿泊予約」をクリックする
+1. URL に「/ja/plans.html」が含まれているか確認する
+1. ナビゲーションメニューの「会員登録」をクリックする
+1. URL に「/ja/signup.html」が含まれているか確認する
+1. ナビゲーションメニューの「ログイン」ボタンをクリックする
+1. URL に「/ja/login.html」が含まれているか確認する
+
 
 ## どうやって動いているの？
 
@@ -47,14 +59,28 @@
 例えば下記のようなCSVは、このような配列に変換されます。
 
 ```
-hogeをする, 引数A
-fugaをする, 引数B|引数C
+tc1,hogeをする, 引数A
+tc1,fugaをする, 引数B
+tc2,piyoをする, 引数C
+tc1,hogeraをする, 引数D|引数E
 ```
 ```
-[
-   ["hogeをする", "引数A"],
-   ["fugaをする", "引数B|引数C"]
-]
+[{
+   "key": "tc1",
+   "values": [
+      ["hogeをする", "引数A"],
+      ["fugaをする", "引数B"]
+   ]
+},
+{
+   "key": "tc2",
+   "values": [
+      ["piyoをする", "引数C"],
+      ["hogeraをする", "引数D|引数E"]
+   ]
+}]
+   
+      
 ```
 
 ### keywordMethods.ts
@@ -79,16 +105,32 @@ const keywords = {
   プラン表示を確認する: km.プラン表示を確認する,
 };
 
-// testStepsの1番目から順番に[キーワード,引数]の配列を取り出します
-for (const [keyword, args] of testSteps) {
-   // もしキーワードがkeywordsで定義されている場合
-   if (typeof keywords[keyword] === "function") {
-     // キーワードに対応したメソッドを引数付きで実行します
-     await keywords[keyword](page, args);
-   } else {
-     // 定義されていない場合はエラーメッセージを出します
-     console.error(`${keyword}は定義されていません`);
-   }
+try {
+  const csvFilePath = "./tests/KeywordDrivenTest.csv";
+  const testSteps = parseCSV(csvFilePath);
+
+  // testStepsからテストケース単位で周回させます
+  for (const [testStep, values] of Object.entries(testSteps)) {
+    test(testStep, async ({ page }) => {
+      // testStepsの1番目から順番に[キーワード,引数]の配列を取り出します
+      for (const [keyword, args] of values) {
+        // メソッドを実行する関数を実行します
+        await executeKeyword(page, keyword, args);
+      }
+      // テストケースの最後にスクリーンショットを撮影します
+      await page.screenshot({ path: "./screenshot.png" });
+    });
+  }
+
+  async function executeKeyword(page: any, keyword: string, args: string) {
+    if (typeof keywords[keyword] === "function") {
+      // キーワードに対応したメソッドを引数付きで実行します
+      await keywords[keyword](page, args);
+    } else {
+      // 定義されていない場合はエラーメッセージを出します
+      console.error(`${keyword}は定義されていません`);
+    }
+  }
 }
 ```
 
