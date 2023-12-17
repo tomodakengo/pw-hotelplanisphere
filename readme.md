@@ -1,6 +1,6 @@
 ![Static Badge](https://img.shields.io/badge/playwirhgt-1.40.1-green?link=https%3A%2F%2Fgithub.com%2Fmicrosoft%2Fplaywright)
 
-# キーワードドリブン自動テスト
+# キーワード駆動型自動テスト
 
 [HOTEL PLANISPHERE](https://hotel.testplanisphere.dev/ja/index.html)をテスト対象に、キーワードで駆動する自動テストのサンプルを作成しました。
 
