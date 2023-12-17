@@ -94,7 +94,7 @@ for (const [keyword, args] of testSteps) {
 
 ## 将来的なお話し
 
-- [ ] 今回はテストケースが1件だけですが、CSVファイルにテストケース名を記載できる列を用意し、テストケースごとに周回させて実行させるようにできるとさらに実用的です。<br>
+- [x] 今回はテストケースが1件だけですが、CSVファイルにテストケース名を記載できる列を用意し、テストケースごとに周回させて実行させるようにできるとさらに実用的です。<br>
 https://github.com/tomodakengo/pw-hotelplanisphere/issues/1
 https://github.com/tomodakengo/pw-hotelplanisphere/tree/feat_add_col_tc
 
